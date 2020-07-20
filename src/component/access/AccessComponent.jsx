@@ -6,8 +6,10 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import AccessDataService from '../../service/AccessDataService';
+import PlateDataService from '../../service/PlateDataService';
 
 
 class AccessComponent extends Component {
@@ -18,6 +20,8 @@ class AccessComponent extends Component {
             id: this.props.match.params.id,
             dateFrom: "",
             dateTo: "",
+            plate: Object,
+            plates: [],
             title: "",
             message: ""
         }
@@ -28,6 +32,11 @@ class AccessComponent extends Component {
     componentDidMount() {
         if (this.state.id === "-1") {
             this.setState({ title: "Create Access" });
+            
+            PlateDataService.getAllPlates().then(
+                response => this.setState({ plates: response.data })
+            )
+
             return
         }
 
@@ -36,7 +45,7 @@ class AccessComponent extends Component {
         AccessDataService.getAccessById(this.state.id).then(
             response => this.setState({
                 dateFrom: response.data.dateFrom,
-                dateTo: response.data.dateTo,
+                dateTo: response.data.dateTo
             })
         );
     }
@@ -46,7 +55,10 @@ class AccessComponent extends Component {
             id: this.state.id,
             dateFrom: values.dateFrom,
             dateTo: values.dateTo,
+            plate: JSON.parse(values.plate)
         }
+
+        console.log(access);
 
         if (this.state.id === "-1") {
             AccessDataService.createAccess(access).then(
@@ -62,7 +74,7 @@ class AccessComponent extends Component {
     }
 
     render() {
-        let { dateFrom, dateTo } = this.state;
+        let { dateFrom, dateTo, plate } = this.state;
 
         return (
             <Container component='main' maxWidth="xs">
@@ -74,47 +86,75 @@ class AccessComponent extends Component {
                     </Typography>
 
                     <Formik
-                        initialValues={{ dateFrom, dateTo }}
+                        initialValues={{ dateFrom, dateTo, plate }}
                         enableReinitialize={true}
                         onSubmit={this.onSubmit}
                     >
                         {props => (
                             <Form>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <TextField 
-                                            variant="outlined"
+
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField
                                             required
                                             fullWidth
-                                            id="dateFrom"
-                                            label="In Force From"
-                                            name="dateFrom"
                                             type="date"
+                                            variant="outlined"
+                                            id="dateFrom"
+                                            name="dateFrom"
+                                            label="In Force From"
+                                            helperText="Please select start date"
+                                            value={props.values.dateFrom}
+                                            onChange={props.handleChange}
                                             InputLabelProps={{
                                                 shrink: true
                                             }}
-                                            value={props.values.dateFrom}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12} sm={6}>
+                                        <TextField 
+                                            required
+                                            fullWidth
+                                            type="date"
+                                            variant="outlined"
+                                            id="dateTo"
+                                            name="dateTo"
+                                            label="In Force To"
+                                            helperText="Please select end date"
+                                            value={props.values.dateTo}
                                             onChange={props.handleChange}
+                                            InputLabelProps={{
+                                                shrink: true
+                                            }}
                                         />
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <TextField 
-                                            variant="outlined"
+                                        <TextField
                                             required
                                             fullWidth
-                                            id="dateTo"
-                                            label="In Force To"
-                                            name="dateTo"
-                                            type="date"
-                                            InputLabelProps={{
-                                                shrink: true
-                                            }}
-                                            value={props.values.dateTo}
+                                            select
+                                            variant="outlined"
+                                            id="plateStr"
+                                            name="plate"
+                                            label="Access Owner"
+                                            helperText="Please select access owner"
+                                            //value={props.values.plate}
                                             onChange={props.handleChange}
-                                        />
+                                            SelectProps={{
+                                                native: true,
+                                            }}
+                                            >
+                                                <option></option>
+                                                {this.state.plates?.map(option => (
+                                                    <option key={option.id} value={JSON.stringify(option)}>
+                                                        {option.plateStr}
+                                                    </option>
+                                                ))}
+                                        </TextField>
                                     </Grid>
-                                </Grid>
+                                </Grid> 
 
                                 <Button
                                     fullWidth

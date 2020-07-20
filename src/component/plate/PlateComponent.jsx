@@ -18,7 +18,7 @@ class PlateComponent extends Component {
             id: this.props.match.params.id,
             firstName: "",
             lastName: "",
-            plate: "",
+            plateStr: "",
             title: "",
             message: ""
         }
@@ -34,7 +34,7 @@ class PlateComponent extends Component {
 
         this.setState({ title: "Update Plate" });
 
-        PlateDataService.retrievePlateById(this.state.id).then(
+        PlateDataService.getPlateById(this.state.id).then(
             response => this.setState({
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
@@ -48,7 +48,7 @@ class PlateComponent extends Component {
             id: this.state.id,
             firstName: values.firstName,
             lastName: values.lastName,
-            plate: values.plate
+            plateStr: values.plateStr
         }
 
         if (this.state.id === "-1") {
@@ -65,7 +65,7 @@ class PlateComponent extends Component {
     }
 
     render() {
-        let { firstName, lastName, plate } = this.state;
+        let { firstName, lastName, plateStr } = this.state;
 
         return (
             <Container component='main' maxWidth="xs">
@@ -77,7 +77,7 @@ class PlateComponent extends Component {
                     </Typography>
 
                     <Formik
-                        initialValues={{ firstName, lastName, plate }}
+                        initialValues={{ firstName, lastName, plateStr }}
                         enableReinitialize={true}
                         onSubmit={this.onSubmit}
                     >
@@ -91,9 +91,8 @@ class PlateComponent extends Component {
                                             fullWidth
                                             id="plate"
                                             label="Plate"
-                                            name="plate"
-                                            autoComplete="plate"
-                                            value={props.values.plate}
+                                            name="plateStr"
+                                            value={props.values.plateStr}
                                             onChange={props.handleChange}
                                         />
                                     </Grid>
@@ -106,7 +105,6 @@ class PlateComponent extends Component {
                                             id="lastName"
                                             label="Last Name"
                                             name="lastName"
-                                            autoComplete="lastName"
                                             value={props.values.lastName}
                                             onChange={props.handleChange}
                                         />
@@ -120,7 +118,6 @@ class PlateComponent extends Component {
                                             id="firstName"
                                             label="First Name"
                                             name="firstName"
-                                            autoComplete="firstName"
                                             value={props.values.firstName}
                                             onChange={props.handleChange}
                                         />

@@ -43,9 +43,9 @@ class ListAccessesComponent extends Component {
     deleteAccessClicked(id) {
         if (window.confirm('Are you sure you wish to delete this item?')) {
             AccessDataService.deleteAccess(id).then(
-                response => {
+                () => {
                     this.setState({ message: `Successfully deleted access.`});
-                    this.refreshPlates();
+                    this.refreshAccesses();
                 }
             )
         }
@@ -68,7 +68,7 @@ class ListAccessesComponent extends Component {
                     Plate Directory
                 </Link>
                 <Link to="/accesses" className="btn btn-primary btn-lg navButton">
-                    Access Directory
+                    Parking Accesses
                 </Link>
             </nav>
             
@@ -90,6 +90,7 @@ class ListAccessesComponent extends Component {
                     <Table className="Table" aria-label="simple table">
                         <TableHead>
                             <TableRow>
+                                <TableCell align="center"><b>Access Owner</b></TableCell>
                                 <TableCell align="center"><b>In Force Since</b></TableCell>
                                 <TableCell align="center"><b>In Force To</b></TableCell>
                                 <TableCell align="center"></TableCell>
@@ -99,6 +100,7 @@ class ListAccessesComponent extends Component {
                         <TableBody>
                             {this.state.accesses?.map(row => (
                                 <TableRow key={row.id}>
+                                    <TableCell align="center">{row.plate.firstName} {row.plate.lastName}</TableCell>
                                     <TableCell align="center">{row.dateFrom}</TableCell>
                                     <TableCell align="center">{row.dateTo}</TableCell>
                                     <TableCell align="center">

@@ -33,7 +33,7 @@ class ListPlatesComponent extends Component {
     }
 
     refreshPlates() {
-        PlateDataService.retrieveAllPlates().then(
+        PlateDataService.getAllPlates().then(
             response => {
                 this.setState({ plates: response.data });
             }
@@ -43,7 +43,7 @@ class ListPlatesComponent extends Component {
     deletePlateClicked(id) {
         if (window.confirm('Are you sure you wish to delete this item?')) {
             PlateDataService.deletePlate(id).then(
-                response => {
+                () => {
                     this.setState({ message: `Successfully deleted plate.`});
                     this.refreshPlates();
                 }
@@ -61,14 +61,13 @@ class ListPlatesComponent extends Component {
 
     render() {
         return (
-            //style={{color: 'white'}} activeStyle={{color: 'white'}}
             <div>
             <nav className="navbar navbar-dark">
                 <Link to="/plates" className="btn btn-primary btn-lg navButton">
                     Plate Directory
                 </Link>
                 <Link to="/accesses" className="btn btn-secondary btn-lg navButton">
-                    Access Directory
+                    Parking Accesses
                 </Link>
             </nav>
             
@@ -102,7 +101,7 @@ class ListPlatesComponent extends Component {
                                 <TableRow key={row.id}>
                                     <TableCell align="center">{row.firstName}</TableCell>
                                     <TableCell align="center">{row.lastName}</TableCell>
-                                    <TableCell align="center">{row.plate}</TableCell>
+                                    <TableCell align="center">{row.plateStr}</TableCell>
                                     <TableCell align="center">
                                         <IconButton aria-label="delete" style={{padding: "1px 5px"}}
                                             onClick={() => this.deletePlateClicked(row.id)}

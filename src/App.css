@@ -27,6 +27,15 @@
     align-items: center;
 }
 
+.SelectEmpty {
+    margin-top: 32px;
+    min-width: 120px;
+}
+
+.ControlForm {
+    margin: 16px;
+}
+
 .navButton {
     width: 50%;
 }
