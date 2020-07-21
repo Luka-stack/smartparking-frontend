@@ -4,19 +4,23 @@ import axios from 'axios';
 class AccessDataService {
 
     getAllAccesses() {
-        return axios.get('/api/access');
+        return axios.get('/api/accesses');
     }
 
     getAccessById(id) {
-        return axios.get(`/api/access/${id}`);
+        return axios.get(`/api/accesses/${id}`);
     }
 
     createAccess(access) {
-        return axios.post('/api/access', access);
+        return axios.post('/api/accesses', access);
     }
 
     updateAccess(id, access) {
-        return axios.put(`/api/access/${id}`, access);
+        return axios.put(`/api/accesses/${id}`, access);
+    }
+
+    deleteAccess(id) {
+        return axios.delete(`/api/accesses/${id}`);
     }
 }
 

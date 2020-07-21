@@ -64,7 +64,7 @@ class ListPlatesComponent extends Component {
             <div>
             <nav className="navbar navbar-dark">
                 <Link to="/plates" className="btn btn-primary btn-lg navButton">
-                    Plate Directory
+                    Plate Owners Directory
                 </Link>
                 <Link to="/accesses" className="btn btn-secondary btn-lg navButton">
                     Parking Accesses
@@ -78,48 +78,54 @@ class ListPlatesComponent extends Component {
                     <button type="button" className="btn btn-outline-success addButton"
                         onClick={() => this.addPlateClicked()}
                     >
-                        New Plate
+                        Create Plate Owner
                     </button>
                 </Typography>
 
-                <TableContainer
-                    style={{ width: "80%", margin: "15px 10px" }}
-                    component={Paper}
-                >
-                    <Table className="Table" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center"><b>First Name</b></TableCell>
-                                <TableCell align="center"><b>Last Name</b></TableCell>
-                                <TableCell align="center"><b>Plate</b></TableCell>
-                                <TableCell align="center"></TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {this.state.plates?.map(row => (
-                                <TableRow key={row.id}>
-                                    <TableCell align="center">{row.firstName}</TableCell>
-                                    <TableCell align="center">{row.lastName}</TableCell>
-                                    <TableCell align="center">{row.plateStr}</TableCell>
-                                    <TableCell align="center">
-                                        <IconButton aria-label="delete" style={{padding: "1px 5px"}}
-                                            onClick={() => this.deletePlateClicked(row.id)}
-                                        >
-                                            <DeleteIcon fontSize="small"/>
-                                        </IconButton>
-                                        <IconButton aria-label="update" style={{padding: "1px 5px"}}
-                                            onClick={() => this.updatePlateClicked(row.id)}
-                                        >
-                                            <EditIcon fontSize="small"/>
-                                        </IconButton>
-                                    </TableCell>
+                {this.state.plates.length == 0 ? (
+                    <Typography component="h1" variant="h4">
+                        <br /> No owners yet
+                    </Typography>
+                ) : (
+                    <TableContainer
+                        style={{ width: "80%", margin: "15px 10px" }}
+                        component={Paper}
+                    >
+                        <Table className="Table" aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="center"><b>First Name</b></TableCell>
+                                    <TableCell align="center"><b>Last Name</b></TableCell>
+                                    <TableCell align="center"><b>Plate</b></TableCell>
+                                    <TableCell align="center"></TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-        </div>
+                            </TableHead>
+
+                            <TableBody>
+                                {this.state.plates?.map(row => (
+                                    <TableRow key={row.id}>
+                                        <TableCell align="center">{row.firstName}</TableCell>
+                                        <TableCell align="center">{row.lastName}</TableCell>
+                                        <TableCell align="center">{row.plateStr}</TableCell>
+                                        <TableCell align="center">
+                                            <IconButton aria-label="delete" style={{padding: "1px 5px"}}
+                                                onClick={() => this.deletePlateClicked(row.id)}
+                                            >
+                                                <DeleteIcon fontSize="small"/>
+                                            </IconButton>
+                                            <IconButton aria-label="update" style={{padding: "1px 5px"}}
+                                                onClick={() => this.updatePlateClicked(row.id)}
+                                            >
+                                                <EditIcon fontSize="small"/>
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
+            </div>
         </div>
         )
     }

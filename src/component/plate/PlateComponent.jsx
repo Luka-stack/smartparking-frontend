@@ -38,7 +38,7 @@ class PlateComponent extends Component {
             response => this.setState({
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
-                plate: response.data.plate
+                plateStr: response.data.plateStr
             })
         );
     }
@@ -89,7 +89,7 @@ class PlateComponent extends Component {
                                             variant="outlined"
                                             required
                                             fullWidth
-                                            id="plate"
+                                            id="plateStr"
                                             label="Plate"
                                             name="plateStr"
                                             value={props.values.plateStr}

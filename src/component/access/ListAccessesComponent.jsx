@@ -65,7 +65,7 @@ class ListAccessesComponent extends Component {
             <div>
             <nav className="navbar navbar-dark">
                 <Link to="/plates" className="btn btn-secondary btn-lg navButton">
-                    Plate Directory
+                    Plate Owners Directory
                 </Link>
                 <Link to="/accesses" className="btn btn-primary btn-lg navButton">
                     Parking Accesses
@@ -76,51 +76,57 @@ class ListAccessesComponent extends Component {
 
                 <Typography component="h1" variant="h4">
                     Access Directory <br />
-                    <button type="button" className="btn btn-outline-success addButton"
-                        onClick={() => this.addAccessClicked()}
-                    >
-                        New Access
-                    </button>
+                        <button type="button" className="btn btn-outline-success addButton"
+                            onClick={() => this.addAccessClicked()}
+                        >
+                            Add New Access
+                        </button>
                 </Typography>
 
-                <TableContainer
-                    style={{ width: "80%", margin: "15px 10px" }}
-                    component={Paper}
-                >
-                    <Table className="Table" aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center"><b>Access Owner</b></TableCell>
-                                <TableCell align="center"><b>In Force Since</b></TableCell>
-                                <TableCell align="center"><b>In Force To</b></TableCell>
-                                <TableCell align="center"></TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {this.state.accesses?.map(row => (
-                                <TableRow key={row.id}>
-                                    <TableCell align="center">{row.plate.firstName} {row.plate.lastName}</TableCell>
-                                    <TableCell align="center">{row.dateFrom}</TableCell>
-                                    <TableCell align="center">{row.dateTo}</TableCell>
-                                    <TableCell align="center">
-                                        <IconButton aria-label="delete" style={{padding: "1px 5px"}}
-                                            onClick={() => this.deleteAccessClicked(row.id)}
-                                        >
-                                            <DeleteIcon fontSize="small"/>
-                                        </IconButton>
-                                        <IconButton aria-label="update" style={{padding: "1px 5px"}}
-                                            onClick={() => this.updateAccessClicked(row.id)}
-                                        >
-                                            <EditIcon fontSize="small"/>
-                                        </IconButton>
-                                    </TableCell>
+                {this.state.accesses.length == 0 ? (
+                    <Typography component="h1" variant="h4">
+                        <br /> No access yet
+                    </Typography>
+                ) : (
+                    <TableContainer
+                        style={{ width: "80%", margin: "15px 10px" }}
+                        component={Paper}
+                    >
+                        <Table className="Table" aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="center"><b>Access Owner</b></TableCell>
+                                    <TableCell align="center"><b>In Force Since</b></TableCell>
+                                    <TableCell align="center"><b>In Force To</b></TableCell>
+                                    <TableCell align="center"></TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-        </div>
+                            </TableHead>
+
+                            <TableBody>
+                                {this.state.accesses.map(row => (
+                                    <TableRow key={row.id}>
+                                        <TableCell align="center">{row.plate.firstName} {row.plate.lastName}</TableCell>
+                                        <TableCell align="center">{row.dateFrom}</TableCell>
+                                        <TableCell align="center">{row.dateTo}</TableCell>
+                                        <TableCell align="center">
+                                            <IconButton aria-label="delete" style={{padding: "1px 5px"}}
+                                                onClick={() => this.deleteAccessClicked(row.id)}
+                                            >
+                                                <DeleteIcon fontSize="small"/>
+                                            </IconButton>
+                                            <IconButton aria-label="update" style={{padding: "1px 5px"}}
+                                                onClick={() => this.updateAccessClicked(row.id)}
+                                            >
+                                                <EditIcon fontSize="small"/>
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
+            </div>
         </div>
         )
     }
