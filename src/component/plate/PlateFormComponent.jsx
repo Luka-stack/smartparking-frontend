@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import PlateDataService from '../../service/PlateDataService';
 
 
-class PlateComponent extends Component {
+class PlateFormComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -153,4 +153,4 @@ class PlateComponent extends Component {
     }
 }
 
-export default PlateComponent
+export default PlateFormComponent

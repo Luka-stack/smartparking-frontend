@@ -36,6 +36,13 @@
     margin: 16px;
 }
 
+.PlateHeader {
+    position: absolute;
+    clear: both;
+    width: 100%;
+    background-color: cadetblue;
+}
+
 .navButton {
     width: 50%;
 }

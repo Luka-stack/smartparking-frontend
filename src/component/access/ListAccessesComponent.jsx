@@ -85,7 +85,7 @@ class ListAccessesComponent extends Component {
 
                 {this.state.accesses.length == 0 ? (
                     <Typography component="h1" variant="h4">
-                        <br /> No access yet
+                        <br /> No accesses yet
                     </Typography>
                 ) : (
                     <TableContainer
