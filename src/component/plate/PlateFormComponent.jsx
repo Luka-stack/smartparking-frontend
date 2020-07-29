@@ -140,6 +140,10 @@ class PlateFormComponent extends Component {
                     <Grid container justify="center">
                         <Grid item>
                             <Link to="/plates">View Plate Records</Link>
+                            <br />
+                            {this.state.id != -1 &&
+                                <Link to={ `/plates/details/${this.state.id}` }>View Plate Detail</Link>
+                            }
                         </Grid>
                     </Grid>
                     {this.state.message &&

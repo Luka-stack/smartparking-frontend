@@ -6,13 +6,12 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 import AccessDataService from '../../service/AccessDataService';
 import PlateDataService from '../../service/PlateDataService';
 
 
-class AccessComponent extends Component {
+class AccessFormComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -20,7 +19,8 @@ class AccessComponent extends Component {
             id: this.props.match.params.id,
             dateFrom: "",
             dateTo: "",
-            plate: Object,
+            //plate: Object,
+            plate: "",
             plates: [],
             title: "",
             message: ""
@@ -30,13 +30,12 @@ class AccessComponent extends Component {
     }
 
     componentDidMount() {
+        PlateDataService.getAllPlates().then(
+            response => this.setState({ plates: response.data })
+        )
+
         if (this.state.id === "-1") {
             this.setState({ title: "Create Access" });
-            
-            PlateDataService.getAllPlates().then(
-                response => this.setState({ plates: response.data })
-            )
-
             return
         }
 
@@ -45,7 +44,8 @@ class AccessComponent extends Component {
         AccessDataService.getAccessById(this.state.id).then(
             response => this.setState({
                 dateFrom: response.data.dateFrom,
-                dateTo: response.data.dateTo
+                dateTo: response.data.dateTo,
+                plate: response.data.plate
             })
         );
     }
@@ -57,8 +57,6 @@ class AccessComponent extends Component {
             dateTo: values.dateTo,
             plate: JSON.parse(values.plate)
         }
-
-        console.log(access);
 
         if (this.state.id === "-1") {
             AccessDataService.createAccess(access).then(
@@ -75,6 +73,10 @@ class AccessComponent extends Component {
 
     render() {
         let { dateFrom, dateTo, plate } = this.state;
+
+        this.state.plates = this.state.plates.filter(item => {
+            return item.id != this.state.plate.id
+        })
 
         return (
             <Container component='main' maxWidth="xs">
@@ -145,11 +147,16 @@ class AccessComponent extends Component {
                                             SelectProps={{
                                                 native: true,
                                             }}
-                                            >
-                                                <option></option>
+                                            >   
+                                                <option selected key={this.state.plate.id} value={JSON.stringify(this.state.plate)}>
+                                                    {this.state.plate.firstName} &nbsp;
+                                                    {this.state.plate.lastName} - &nbsp;
+                                                    {this.state.plate.plateStr}
+                                                </option>
+
                                                 {this.state.plates?.map(option => (
                                                     <option key={option.id} value={JSON.stringify(option)}>
-                                                        {option.plateStr}
+                                                        {option.firstName} {option.lastName} - {option.plateStr}
                                                     </option>
                                                 ))}
                                         </TextField>
@@ -171,6 +178,10 @@ class AccessComponent extends Component {
                     <Grid container justify="center">
                         <Grid item>
                             <Link to="/accesses">View Access Records</Link>
+                            <br />
+                            {this.state.id != -1 &&
+                                <Link to={ `/plates/details/${this.state.id}` }>View Plate Detail</Link>
+                            }
                         </Grid>
                     </Grid>
                     {this.state.message &&
@@ -184,4 +195,4 @@ class AccessComponent extends Component {
     }
 }
 
-export default AccessComponent
+export default AccessFormComponent

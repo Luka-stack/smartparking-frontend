@@ -41,10 +41,10 @@ class ListAccessesComponent extends Component {
     }
 
     deleteAccessClicked(id) {
-        if (window.confirm('Are you sure you wish to delete this item?')) {
+        if (window.confirm('Are you sure you wish to delete this access?')) {
             AccessDataService.deleteAccess(id).then(
                 () => {
-                    this.setState({ message: `Successfully deleted access.`});
+                    this.setState({ message: 'Successfully deleted access.'});
                     this.refreshAccesses();
                 }
             )
@@ -97,15 +97,19 @@ class ListAccessesComponent extends Component {
                                 <TableRow>
                                     <TableCell align="center"><b>Access Owner</b></TableCell>
                                     <TableCell align="center"><b>In Force Since</b></TableCell>
-                                    <TableCell align="center"><b>In Force To</b></TableCell>
+                                    <TableCell align="center"><b>In Force Until</b></TableCell>
                                     <TableCell align="center"></TableCell>
                                 </TableRow>
                             </TableHead>
 
                             <TableBody>
                                 {this.state.accesses.map(row => (
-                                    <TableRow key={row.id}>
-                                        <TableCell align="center">{row.plate.firstName} {row.plate.lastName}</TableCell>
+                                    <TableRow key={row.id} C>
+                                        <TableCell align="center">
+                                            <Link to={`/plates/details/${row.plate.id}`}>
+                                                {row.plate.firstName} {row.plate.lastName}
+                                            </Link>
+                                        </TableCell>
                                         <TableCell align="center">{row.dateFrom}</TableCell>
                                         <TableCell align="center">{row.dateTo}</TableCell>
                                         <TableCell align="center">

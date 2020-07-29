@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import MoreIcon from '@material-ui/icons/More';
 import { Link } from "react-router-dom";
 import PlateDataService from '../../service/PlateDataService';
 
@@ -41,10 +42,10 @@ class ListPlatesComponent extends Component {
     }
 
     deletePlateClicked(id) {
-        if (window.confirm('Are you sure you wish to delete this item?')) {
+        if (window.confirm('Are you sure you wish to delete this plate?')) {
             PlateDataService.deletePlate(id).then(
                 () => {
-                    this.setState({ message: `Successfully deleted plate.`});
+                    this.setState({ message: 'Successfully deleted plate.'});
                     this.refreshPlates();
                 }
             )
@@ -108,15 +109,22 @@ class ListPlatesComponent extends Component {
                                         <TableCell align="center">{row.lastName}</TableCell>
                                         <TableCell align="center">{row.plateStr}</TableCell>
                                         <TableCell align="center">
-                                            <IconButton aria-label="delete" style={{padding: "1px 5px"}}
-                                                onClick={() => this.deletePlateClicked(row.id)}
+                                            <IconButton aria-label="more" style={{padding: "1px 5px"}}
+                                                onClick={() => this.props.history.push(`/plates/details/${row.id}`)}
                                             >
-                                                <DeleteIcon fontSize="small"/>
+                                                <MoreIcon fontSize="small"/>
                                             </IconButton>
+                                            &nbsp;&nbsp;
                                             <IconButton aria-label="update" style={{padding: "1px 5px"}}
                                                 onClick={() => this.updatePlateClicked(row.id)}
                                             >
                                                 <EditIcon fontSize="small"/>
+                                            </IconButton>
+                                            &nbsp;&nbsp;
+                                            <IconButton aria-label="delete" style={{padding: "1px 5px"}}
+                                                onClick={() => this.deletePlateClicked(row.id)}
+                                            >
+                                                <DeleteIcon fontSize="small"/>
                                             </IconButton>
                                         </TableCell>
                                     </TableRow>
