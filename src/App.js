@@ -5,12 +5,14 @@ import PlateFormComponent from './component/plate/PlateFormComponent';
 import PlateDetailsComponent from './component/plate/PlateDetailsComponent';
 import ListAccessesComponent from './component/access/ListAccessesComponent';
 import AccessFormComponent from './component/access/AccessFormComponent';
+import RenderNavBar from './component/NavBar';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <Router>
+        <RenderNavBar />
         <Switch>
           <Route path="/" exact component={ListAccessesComponent} />
 
