@@ -1,43 +1,40 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from "react-router-dom";
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import logo from '../tt_logo.png'; 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
 
 export default function RenderNavBar() {
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Smart Parking
-          </Typography>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar.Brand href="#home">
+        <img
+          alt=""
+          src={logo}
+          width="50"
+          height="35"
+          className="d-inline-block align-top"
+        />{' '}
+        Smart Parking
+      </Navbar.Brand>
 
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-             <MenuIcon />
-          </IconButton>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto" style={{ marginRight: "100px"}}>
+          <NavDropdown title="Options" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Add Plate Owner</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Add Access</NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
 
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+        <Nav className="ml-auto">
+          <Nav.Link href="#features">Plate Owners Directory</Nav.Link>
+          <Nav.Link href="#pricing">Parking Accesses</Nav.Link>
+        </Nav>
+
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
