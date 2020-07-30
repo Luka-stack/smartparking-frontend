@@ -3,20 +3,24 @@ import axios from 'axios';
 
 class PlateDataService {
 
-    getAllPlates() {
-        return axios.get('/api/plates');
+    async getAllPlates() {
+        return await axios.get('/api/plates');
     }
 
-    getPlateById(id) {
-        return axios.get(`/api/plates/${id}`);
+    async getPlateById(id) {
+        return await axios.get(`/api/plates/${id}`);
     }
 
-    createPlate(plate) {
-        return axios.post('/api/plates', plate);
+    async createPlate(plate) {
+        return await axios.post('/api/plates', plate);
     }
 
-    updatePlate(id, plate) {
-        return axios.put(`/api/plates/${id}`, plate);
+    async updatePlate(id, plate) {
+        return await axios.put(`/api/plates/${id}`, plate);
+    }
+
+    async deletePlateById(id) {
+        return await axios.delete(`/api/plates/${id}`);
     }
 
 }

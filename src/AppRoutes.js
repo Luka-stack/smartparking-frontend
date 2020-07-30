@@ -1,24 +1,28 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import ListPlatesComponent from './component/plate/ListPlatesComponent';
 import PlateFormComponent from './component/plate/PlateFormComponent';
 import PlateDetailsComponent from './component/plate/PlateDetailsComponent';
-import ListAccessesComponent from './component/access/ListAccessesComponent';
 import AccessFormComponent from './component/access/AccessFormComponent';
+
+import PlateList from './component/plate/PlateList';
+import AccessList from './component/access/AccessList';
+import PlateForm from './component/plate/PlateForm';
 
 
 export default function AppRoutes() {
     return (
       <Switch>
-        <Route path="/" exact component={ListAccessesComponent} />
+        <Route path="/" exact component={AccessList} />
 
-        <Route path="/plates" exact component={ListPlatesComponent} />
-        <Route path="/plates/:id" component={PlateFormComponent} />
-        <Route path="/plates/details/:id" component={PlateDetailsComponent} />
+        <Route path="/test/:id" component={PlateForm} />
+
+        <Route path="/plates" exact component={PlateList} />
+        <Route path="/plates/:id" exact component={PlateFormComponent} />
+        <Route path="/plates/details/:id" exact component={PlateDetailsComponent} />
           
-        <Route path="/accesses" exact component={ListAccessesComponent} />
-        <Route path="/accesses/:id" component={AccessFormComponent} />
+        <Route path="/accesses" exact component={AccessList} />
+        <Route path="/accesses/:id" exact component={AccessFormComponent} />
       </Switch>
     );
 }

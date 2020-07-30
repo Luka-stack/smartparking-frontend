@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -9,7 +10,7 @@ export default function RenderNavBar() {
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="#home">
+      <Navbar.Brand>
         <img
           alt=""
           src={logo}
@@ -24,14 +25,14 @@ export default function RenderNavBar() {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto" style={{ marginRight: "100px"}}>
           <NavDropdown title="Options" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Add Plate Owner</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Add Access</NavDropdown.Item>
+            <NavDropdown.Item href="/plates/-1">Add Plate Owner</NavDropdown.Item>
+            <NavDropdown.Item href="/accesses/-1">Add Access</NavDropdown.Item>
           </NavDropdown>
         </Nav>
 
         <Nav className="ml-auto">
-          <Nav.Link href="#features">Plate Owners Directory</Nav.Link>
-          <Nav.Link href="#pricing">Parking Accesses</Nav.Link>
+          <NavLink to="/plates" className="nav-link" activeClassName="active"> Plate Owners Directory </NavLink>
+          <NavLink to="/accesses" className="nav-link" activeClassName="active"> Parking Accesses </NavLink>
         </Nav>
 
       </Navbar.Collapse>

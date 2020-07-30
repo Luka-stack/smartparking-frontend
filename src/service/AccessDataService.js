@@ -3,23 +3,23 @@ import axios from 'axios';
 
 class AccessDataService {
 
-    getAllAccesses() {
-        return axios.get('/api/accesses');
+    async getAllAccesses() {
+        return await axios.get('/api/accesses');
     }
 
-    getAccessById(id) {
+    async getAccessById(id) {
         return axios.get(`/api/accesses/${id}`);
     }
 
-    createAccess(access) {
+    async createAccess(access) {
         return axios.post('/api/accesses', access);
     }
 
-    updateAccess(id, access) {
+    async updateAccess(id, access) {
         return axios.put(`/api/accesses/${id}`, access);
     }
 
-    deleteAccess(id) {
+    async deleteAccessById(id) {
         return axios.delete(`/api/accesses/${id}`);
     }
 }
