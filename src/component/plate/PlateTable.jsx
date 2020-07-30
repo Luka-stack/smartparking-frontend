@@ -16,6 +16,7 @@ const PlateTable = (props) => {
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Plate Number</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +25,7 @@ const PlateTable = (props) => {
                         <td></td>
                         <td>{row.firstName}</td>
                         <td>{row.lastName}</td>
-                        <td>{row.plateStr}</td>
+                        <td>{row.plateNum}</td>
                         <td>
                             <IconButton aria-label="more" style={{padding: "1px 5px"}}>
                                 <Link to={`/plates/details/${row.id}`}>

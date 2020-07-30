@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PlateDataService from '../../service/PlateDataService';
 import PlateTable from './PlateTable';
 
@@ -36,9 +37,9 @@ const PlateList = () => {
                 <div className="mt-5 mb-5 d-flex justify-content-center">
                     <div className="w-50 text-center">
                         <h3 className="display-4">Plate Owners</h3>
-                        <button type="button" className="btn btn-outline-success addButton">
+                        <Link to="/plates/-1" className="btn btn-outline-success addButton">
                             Create Plate Owner
-                        </button>
+                        </Link>
                     </div>
                 </div>
 

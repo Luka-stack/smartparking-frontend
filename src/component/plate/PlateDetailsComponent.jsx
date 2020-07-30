@@ -16,9 +16,11 @@ class PlateDetailsComponent extends Component {
             id: this.props.match.params.id,
             firstName: "",
             lastName: "",
-            plateStr: "",
+            plateNum: "",
             accesses: []
         }
+
+        console.log(this.state.id);
 
         this.refreshPlate = this.refreshPlate.bind(this);
         this.deletePlateClicked = this.deletePlateClicked.bind(this);
@@ -70,7 +72,7 @@ class PlateDetailsComponent extends Component {
             response => this.setState({
                 firstName: response.data.firstName,
                 lastName: response.data.lastName,
-                plateStr: response.data.plateStr,
+                plateNum: response.data.plateNum,
                 accesses: response.data.accesses
             })
         )
@@ -79,27 +81,27 @@ class PlateDetailsComponent extends Component {
     render() {
         return (
             <Container>
-                <div class="jumbotron mb-5 p-3 row p-md-5 text-white rounded bg-dark">
-                    <div class="col-md-6 px-0">
-                        <div class="card-body d-flex flex-column align-items-center">
-                            <h1 class="display-5"> License Plate </h1>
-                            <h2 class="font-italic"> { this.state.plateStr.split(/([0-9]+)/)[0] } </h2>
-                            <h2 class="font-italic"> { this.state.plateStr.split(/([0-9]+)/)[1] } </h2>
+                <div className="jumbotron mb-5 p-3 row p-md-5 text-white rounded bg-dark">
+                    <div className="col-md-6 px-0">
+                        <div className="card-body d-flex flex-column align-items-center">
+                            <h1 className="display-5"> License Plate </h1>
+                            <h2 className="font-italic"> { this.state.plateNum.split(/([0-9]+)/)[0] } </h2>
+                            <h2 className="font-italic"> { this.state.plateNum.split(/([0-9]+)/)[1] } </h2>
                         </div>
                     </div>
-                    <div class="col-md-6 px-0">
-                        <div class="card-body d-flex flex-column align-items-center">
-                            <h1 class="display-5"> Plate Owner </h1>
-                            <h3 class="font-italic"> { this.state.lastName } </h3>
-                            <h3 class="font-italic"> { this.state.firstName } </h3>
+                    <div className="col-md-6 px-0">
+                        <div className="card-body d-flex flex-column align-items-center">
+                            <h1 className="display-5"> Plate Owner </h1>
+                            <h3 className="font-italic"> { this.state.lastName } </h3>
+                            <h3 className="font-italic"> { this.state.firstName } </h3>
                         </div>
                     </div>
                 </div>
 
-                <div class="row mb-5">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
+                <div className="row mb-5">
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-body">
                                 <button type="button" className="btn btn-danger" style={{width: "100%"}}
                                     onClick={() => this.deletePlateClicked(this.state.id)}
                                 >
@@ -109,9 +111,9 @@ class PlateDetailsComponent extends Component {
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
+                    <div className="col-md-6">
+                        <div className="card">
+                            <div className="card-body">
                                 <button type="button" className="btn btn-primary" style={{width: "100%"}}
                                     onClick={() => this.updatePlateClicked(this.state.id)}
                                 >
@@ -122,9 +124,9 @@ class PlateDetailsComponent extends Component {
                     </div>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="col-md-12 text-center">
-                        <h3 class="display-4">Accesses
+                <div className="col-md-12">
+                    <div className="col-md-12 text-center">
+                        <h3 className="display-4">Accesses
                             <IconButton aria-label="update" style={{padding: "1px 5px"}}
                                 onClick={() => this.createAccessClicked()}>
                                 <AddBoxIcon fontSize="large"/>
@@ -133,12 +135,12 @@ class PlateDetailsComponent extends Component {
                     </div>
 
                     {this.state.accesses.length == 0 ? (
-                        <div class="col-md-12 text-center">
-                            <h3 class="display-5">Not Accesses Yet</h3>
+                        <div className="col-md-12 text-center">
+                            <h3 className="display-5">Not Accesses Yet</h3>
                         </div>
                     ) : (
-                        <table class="table table-hover">
-                            <thead class="thead-dark">
+                        <table className="table table-hover">
+                            <thead className="thead-dark">
                                 <tr>
                                     <th scope="col" colspan="2"></th>
                                     <th scope="col">In Force Since</th>

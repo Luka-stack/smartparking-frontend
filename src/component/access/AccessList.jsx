@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AccessDataService from '../../service/AccessDataService';
 import AccessTable from './AccessTable';
 
@@ -36,9 +37,9 @@ const AccessList = () => {
             <div className="mt-5 mb-5 d-flex justify-content-center">
                 <div className="w-50 text-center">
                     <h3 className="display-4">Parking Accesses</h3>
-                    <button type="button" className="btn btn-outline-success addButton">
+                    <Link to="/accesses/-1" className="btn btn-outline-success addButton">
                         Add Parking Access
-                    </button>
+                    </Link>
                 </div>
             </div>
 
