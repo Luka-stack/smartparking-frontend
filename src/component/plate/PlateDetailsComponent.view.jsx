@@ -62,7 +62,7 @@ const PlateDetailsView = (props) => {
                                 </thead>
                                 <tbody>
                                 {props.plate.accesses.map(row => (
-                                    <tr>
+                                    <tr key={row.id}>
                                         <td></td>
                                         <td>{row.dateFrom}</td>
                                         <td>{row.dateTo}</td>
@@ -84,7 +84,11 @@ const PlateDetailsView = (props) => {
                                 </tbody>
                             </table>
                         ) : (
-                            <div>No Accesses</div>
+                            <div className="text-center">
+                                <div className="card">
+                                    <h3>No Accesses Yet</h3>
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>

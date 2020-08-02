@@ -1,55 +1,46 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
-import { Formik, Form } from 'formik';
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import PlateDataService from '../../service/PlateDataService';
+import PlateFormView from './PlateFormComponent.view';
 
 
 const PlateForm = (props) => {
 
-    const [id, setId] = useState(0);
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [plateNum, setPlateNum] = useState("");
+    const [plate, setPlate] = useState();
 
+    const [refrenceId, setRefernceId] = useState(0);
     const [firstLoad, setLoad] = useState(true);
     const [message, setMessage] = useState(false);
     const [title, setTitle] = useState("Create");
 
-    const firstNameChanged = event => setFirstName(event.target.value);
-    const lastNameChanged = event => setLastName(event.target.value);
-    const plateNumChanged = event => setPlateNum(event.target.value);
-
     const load = () => {
         if (props.match.params.id !== "-1") {    
             PlateDataService.getPlateById(props.match.params.id).then(
-                response => {
-                    setFirstName(response.data.firstName);
-                    setLastName(response.data.lastName);
-                    setPlateNum(response.data.plateNum);
-                    setId(response.data.id);
-                }
+                response => setPlate(response.data)
             );
 
             setTitle("Update");
         }
+        else {
+            setPlate("");
+        }
     }
 
-    const handleSubmit = vars => {
+    const onSubmit = vars => {
         if (props.match.params.id === "-1") {
             PlateDataService.createPlate(vars).then(
                 response => {
-                    setFirstName("");
-                    setLastName("");
-                    setPlateNum("");
-                    setId(response.data.id);
+                    setPlate("");
+                    setRefernceId(response.data.id);
                     setMessage(true);
                 }
             )
         } 
         else {
-            PlateDataService.updatePlate(props.match.params.id , vars).then(
+            plate.firstName = vars.firstName
+            plate.lastName = vars.lastName
+            plate.plateNum = vars.plateNum
+            PlateDataService.updatePlate(props.match.params.id , plate).then(
                 () => props.history.push(`/plates/details/${props.match.params.id}`)
             )
         }
@@ -69,7 +60,7 @@ const PlateForm = (props) => {
                     {message &&
                         <div className="alert alert-success hideMe" role="alert">
                             Successfully added Plate Onwer.&nbsp;
-                            <Link to={`/plates/details/${id}`} className="alert-link">
+                            <Link to={`/plates/details/${refrenceId}`} className="alert-link">
                                 Go to details page.
                             </Link>
                         </div>
@@ -77,66 +68,7 @@ const PlateForm = (props) => {
                 </div>
 
                 {!firstLoad && 
-                    <Formik
-                        initialValues={{ firstName, lastName, plateNum }}
-                        enableReinitialize={true}
-                        onSubmit={handleSubmit}
-                    >
-                        <Form>
-                            <div className="form-group">
-                                <TextField 
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="plateNum"
-                                    label="Plate Number"
-                                    name="plateNum"
-                                    value={plateNum}
-                                    onChange={plateNumChanged}
-                                />
-                            </div>
-                            <div className="row">
-                            
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <TextField 
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id="lastName"
-                                            label="Last Name"
-                                            name="lastName"
-                                            value={lastName}
-                                            onChange={lastNameChanged}
-                                        />
-                                    </div>
-                                </div>
-            
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <TextField 
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id="firstName"
-                                            label="First Name"
-                                            name="firstName"
-                                            value={firstName}
-                                            onChange={firstNameChanged}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                            >
-                                Save
-                            </Button>
-                        </Form>
-                    </Formik>
+                    <PlateFormView plate={plate} submit={onSubmit} />
                 }
                 
                 <div className="container mt-3 text-center">

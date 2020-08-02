@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CircularProgress from "@material-ui/core/CircularProgress"; 
 import PlateDataService from '../../service/PlateDataService';
 import AccessDataService from '../../service/AccessDataService';
 import PlateDetialsView from './PlateDetailsComponent.view';
@@ -24,6 +25,8 @@ const PlateDetails = (props) => {
         setLoad(false);
     }
 
+    if (plate) isLoading = false;
+
     const deletePlate = (id) => {
         if (window.confirm('Are you sure you wish to delete this plate?')) {
             PlateDataService.deletePlateById(id).then(
@@ -41,7 +44,13 @@ const PlateDetails = (props) => {
     }
 
     return (
-        <PlateDetialsView plate={plate} deletePlate={deletePlate} deleteAccess={deleteAccess}/>
+        <>
+        {isLoading ? (
+            <CircularProgress />
+        ) : (
+            <PlateDetialsView plate={plate} deletePlate={deletePlate} deleteAccess={deleteAccess}/>
+        )}
+        </>
     )
 }
 

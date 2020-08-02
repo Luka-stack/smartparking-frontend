@@ -8,19 +8,19 @@ class AccessDataService {
     }
 
     async getAccessById(id) {
-        return axios.get(`/api/accesses/${id}`);
+        return await axios.get(`/api/accesses/${id}`);
     }
 
     async createAccess(access) {
-        return axios.post('/api/accesses', access);
+        return await axios.post('/api/accesses', access);
     }
 
     async updateAccess(id, access) {
-        return axios.put(`/api/accesses/${id}`, access);
+        return await axios.put(`/api/accesses/${id}`, access);
     }
 
     async deleteAccessById(id) {
-        return axios.delete(`/api/accesses/${id}`);
+        return await axios.delete(`/api/accesses/${id}`);
     }
 }
 
