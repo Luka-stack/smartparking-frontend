@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import CircularProgress from "@material-ui/core/CircularProgress";  
 import PlateDataService from '../../service/PlateDataService';
-import PlateTable from './PlateTable';
+import PlateListView from './PlateListComponent.view';
 
 
 const PlateList = () => {
 
-    const [plates, setPlates] = useState();
+    const [plates, setPlates] = useState("");
     const [firstLoad, setLoad] = useState(true);
     let isLoading = true;
 
@@ -29,6 +30,8 @@ const PlateList = () => {
         setLoad(false);
     }
 
+    if (plates !== "") isLoading = false;
+
     return (
         <div className="d-flex justify-content-center">
 
@@ -43,7 +46,11 @@ const PlateList = () => {
                     </div>
                 </div>
 
-                <PlateTable plates={plates} deletePlate={deletePlate}/>
+                {isLoading ? (
+                    <CircularProgress />
+                ) : (
+                    <PlateListView plates={plates} deletePlate={deletePlate}/>
+                )}
             </div>
         </div>
     )

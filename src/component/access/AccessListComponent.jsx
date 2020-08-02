@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AccessDataService from '../../service/AccessDataService';
-import AccessTable from './AccessTable';
+import AccessListView from './AccessListComponent.view';
+import { CircularProgress } from '@material-ui/core';
 
 
 const AccessList = () => {
@@ -29,6 +30,8 @@ const AccessList = () => {
         setLoad(false);
     }
 
+    if (accesses !== "") isLoading = false;
+
     return (
         <div className="d-flex justify-content-center">
 
@@ -43,7 +46,11 @@ const AccessList = () => {
                 </div>
             </div>
 
-            <AccessTable accesses={accesses} deleteClicked={deleteClicked}/>
+            {isLoading ? (
+                <CircularProgress />
+            ) : (
+                <AccessListView accesses={accesses} deleteClicked={deleteClicked}/>
+            )}
         </div>
     </div>
     )

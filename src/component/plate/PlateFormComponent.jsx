@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Formik, Form } from 'formik';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -20,7 +20,7 @@ const PlateForm = (props) => {
     const firstNameChanged = event => setFirstName(event.target.value);
     const lastNameChanged = event => setLastName(event.target.value);
     const plateNumChanged = event => setPlateNum(event.target.value);
-    
+
     const load = () => {
         if (props.match.params.id !== "-1") {    
             PlateDataService.getPlateById(props.match.params.id).then(
@@ -76,68 +76,71 @@ const PlateForm = (props) => {
                     }
                 </div>
 
-                <Formik
-                    initialValues={{ firstName, lastName, plateNum }}
-                    enableReinitialize={true}
-                    onSubmit={handleSubmit}
-                >
-                    <Form>
-                        <div className="form-group">
-                            <TextField 
-                                variant="outlined"
-                                required
+                {!firstLoad && 
+                    <Formik
+                        initialValues={{ firstName, lastName, plateNum }}
+                        enableReinitialize={true}
+                        onSubmit={handleSubmit}
+                    >
+                        <Form>
+                            <div className="form-group">
+                                <TextField 
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="plateNum"
+                                    label="Plate Number"
+                                    name="plateNum"
+                                    value={plateNum}
+                                    onChange={plateNumChanged}
+                                />
+                            </div>
+                            <div className="row">
+                            
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <TextField 
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            id="lastName"
+                                            label="Last Name"
+                                            name="lastName"
+                                            value={lastName}
+                                            onChange={lastNameChanged}
+                                        />
+                                    </div>
+                                </div>
+            
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <TextField 
+                                            variant="outlined"
+                                            required
+                                            fullWidth
+                                            id="firstName"
+                                            label="First Name"
+                                            name="firstName"
+                                            value={firstName}
+                                            onChange={firstNameChanged}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <Button
                                 fullWidth
-                                id="plateNum"
-                                label="Plate Number"
-                                name="plateNum"
-                                value={plateNum}
-                                onChange={plateNumChanged}
-                            />
-                        </div>
-                        <div className="row">
-                        
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <TextField 
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="lastName"
-                                        label="Last Name"
-                                        name="lastName"
-                                        value={lastName}
-                                        onChange={lastNameChanged}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <TextField 
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="firstName"
-                                        label="First Name"
-                                        name="firstName"
-                                        value={firstName}
-                                        onChange={firstNameChanged}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                        >
-                            Save
-                        </Button>
-                    </Form>
-                </Formik>
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                            >
+                                Save
+                            </Button>
+                        </Form>
+                    </Formik>
+                }
+                
                 <div className="container mt-3 text-center">
-                    <Link to="/accesses">View Owners Records</Link>
+                    <Link to="/plates">View Owners Records</Link>
                     <br />
                     {props.match.params.id !== "-1" &&
                         <Link to={ `/plates/details/${props.match.params.id}` }>
