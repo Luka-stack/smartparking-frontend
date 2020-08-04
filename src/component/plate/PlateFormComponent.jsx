@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import PlateDataService from '../../service/PlateDataService';
 import PlateFormView from './PlateFormComponent.view';
 
-
 const PlateForm = (props) => {
 
     const [plate, setPlate] = useState();
@@ -12,6 +11,10 @@ const PlateForm = (props) => {
     const [firstLoad, setLoad] = useState(true);
     const [message, setMessage] = useState(false);
     const [title, setTitle] = useState("Create");
+
+    const cancel = () => {
+        document.getElementById("former").reset();
+    }
 
     const load = () => {
         if (props.match.params.id !== "-1") {    
@@ -30,9 +33,11 @@ const PlateForm = (props) => {
         if (props.match.params.id === "-1") {
             PlateDataService.createPlate(vars).then(
                 response => {
-                    setPlate("");
                     setRefernceId(response.data.id);
+                    setMessage(false);
                     setMessage(true);
+                    setPlate("")
+                    cancel()
                 }
             )
         } 
@@ -63,13 +68,12 @@ const PlateForm = (props) => {
                             <Link to={`/plates/details/${refrenceId}`} className="alert-link">
                                 Go to details page.
                             </Link>
+
                         </div>
                     }
                 </div>
 
-                {!firstLoad && 
-                    <PlateFormView plate={plate} submit={onSubmit} />
-                }
+                <PlateFormView plate={plate} submit={onSubmit} id="form"/>
                 
                 <div className="container mt-3 text-center">
                     <Link to="/plates">View Owners Records</Link>

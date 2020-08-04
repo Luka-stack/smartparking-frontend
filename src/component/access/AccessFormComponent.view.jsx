@@ -14,7 +14,7 @@ const AccessFormView = (props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(props.submit)}>
+        <form onSubmit={handleSubmit(props.submit)} id="former">
             <div className="row">
                 <div className="col-md-6">
                     <div className="form-group">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
@@ -14,7 +14,7 @@ const PlateFormView = (props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(props.submit)}>
+        <form onSubmit={handleSubmit(props.submit)} id="former">
             <div className="form-group">
                 <TextField 
                     variant="outlined"

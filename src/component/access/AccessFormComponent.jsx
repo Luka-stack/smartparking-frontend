@@ -32,6 +32,10 @@ const AccessForm = (props) => {
         );
     }
 
+    const cancel = () => {
+        document.getElementById("former").reset();
+    }
+
     const onSubmit = vars => {
         vars.plate = JSON.parse(vars.plate)
         if (props.match.params.id === "-1") {
@@ -39,6 +43,7 @@ const AccessForm = (props) => {
                 response => {
                     setId(response.data.plate.id);
                     setAccess("");
+                    setMessage(false);
                     setMessage(true);
                 }
             )
@@ -49,11 +54,14 @@ const AccessForm = (props) => {
             access.plate = vars.plate
             AccessDataService.updateAccess(props.match.params.id, access).then(
                 response => {
-                    setId(response.data.plate.id);;
+                    setId(response.data.plate.id);
+                    setMessage(false);
                     setMessage(true);
                 }
             )
         }
+
+        cancel();
     }
 
     if (firstLoad) {
