@@ -1,0 +1,45 @@
+@import url('https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css');
+
+
+hr.solid {
+    border-top: 1px solid #999;
+}
+
+.bg-jumbotron {
+    /* background-color: rgba(189, 203, 217, .8); */
+
+    background-color: rgba(138, 184, 230, .4);
+}
+
+.box-shadow--6dp {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .2)
+}
+
+.hideMe {
+    -moz-animation: hiding 0s ease-in 3s forwards;
+    /* Firefox */
+    -webkit-animation: hiding 0s ease-in 3s forwards;
+    /* Safari and Chrome */
+    -o-animation: hiding 0s ease-in 3s forwards;
+    /* Opera */
+    animation: hiding 0s ease-in 3s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hiding {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+        position: absolute;
+    }
+}
+
+@-webkit-keyframes hiding {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
